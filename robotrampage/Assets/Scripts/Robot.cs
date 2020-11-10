@@ -5,6 +5,7 @@ using UnityEngine;
 public class Robot : MonoBehaviour {
 
     [SerializeField]
+    GameObject missilePrefab;
     private string robotType;
     public int health;
     public int range;
@@ -14,6 +15,7 @@ public class Robot : MonoBehaviour {
     private Transform player;
     private float timeLastFired;
     private bool isDead;
+    public Animator robot;
 
     // Use this for initialization
     void Start()
@@ -48,6 +50,9 @@ public class Robot : MonoBehaviour {
 
     private void fire()
     {
-        Debug.Log("Fire");
+        GameObject missile = Instantiate(missilePrefab);
+        missile.transform.position = missileFireSpot.transform.position;
+        missile.transform.rotation = missileFireSpot.transform.rotation;
+        robot.Play("Fire");
     }
 }
