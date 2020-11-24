@@ -17,6 +17,13 @@ public class Robot : MonoBehaviour {
     private bool isDead;
     public Animator robot;
 
+    [SerializeField]
+    private AudioClip deathSound;
+    [SerializeField]
+    private AudioClip fireSound;
+    [SerializeField]
+    private AudioClip weakHitSound;
+
     // Use this for initialization
     void Start()
 {
@@ -54,6 +61,7 @@ public class Robot : MonoBehaviour {
         missile.transform.position = missileFireSpot.transform.position;
         missile.transform.rotation = missileFireSpot.transform.rotation;
         robot.Play("Fire");
+        GetComponent<AudioSource>().PlayOneShot(fireSound);
     }
 
     // Take damage if the robot is hit
@@ -69,6 +77,11 @@ public class Robot : MonoBehaviour {
             isDead = true;
             robot.Play("Die");
             StartCoroutine("DestroyRobot");
+            GetComponent<AudioSource>().PlayOneShot(deathSound);
+        }
+        else
+        {
+            GetComponent<AudioSource>().PlayOneShot(weakHitSound);
         }
     }
     // Destroy the robot if health reaches 0 after 1.5s
