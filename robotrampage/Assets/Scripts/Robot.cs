@@ -56,7 +56,7 @@ public class Robot : MonoBehaviour {
         robot.Play("Fire");
     }
 
-    // 1
+    // Take damage if the robot is hit
     public void TakeDamage(int amount)
     {
         if (isDead)
@@ -71,7 +71,7 @@ public class Robot : MonoBehaviour {
             StartCoroutine("DestroyRobot");
         }
     }
-    // 2
+    // Destroy the robot if health reaches 0 after 1.5s
     IEnumerator DestroyRobot()
     {
         yield return new WaitForSeconds(1.5f);
