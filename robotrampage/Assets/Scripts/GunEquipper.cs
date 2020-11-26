@@ -44,8 +44,10 @@ public class GunEquipper : MonoBehaviour {
 
   [SerializeField]
   GameUI gameUI;
+    [SerializeField]
+    Ammo ammo;
 
-  void Start() {
+    void Start() {
     activeWeaponType = Constants.Pistol;
     activeGun = pistol;
   }
@@ -57,7 +59,8 @@ public class GunEquipper : MonoBehaviour {
 
     weapon.SetActive(true);
     activeGun = weapon;
-  }
+        gameUI.SetAmmoText(ammo.GetAmmo(activeGun.tag));
+    }
 
   void Update() {
     if (Input.GetKeyDown("1")) {

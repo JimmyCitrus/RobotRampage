@@ -33,7 +33,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameUI : MonoBehaviour {
+public class GameUI : MonoBehaviour
+{
 
   [SerializeField]
   Sprite redReticle;
@@ -44,8 +45,31 @@ public class GameUI : MonoBehaviour {
   [SerializeField]
   Image reticle;
 
-  public void UpdateReticle() {
-    switch (GunEquipper.activeWeaponType) {
+    [SerializeField]
+    private Text ammoText;
+    [SerializeField]
+    private Text healthText;
+    [SerializeField]
+    private Text armorText;
+    [SerializeField]
+    private Text scoreText;
+    [SerializeField]
+    private Text pickupText;
+    [SerializeField]
+    private Text waveText;
+    [SerializeField]
+    private Text enemyText;
+    [SerializeField]
+    private Text waveClearText;
+    [SerializeField]
+    private Text newWaveText;
+    [SerializeField]
+    Player player;
+
+    public void UpdateReticle()
+    {
+    switch (GunEquipper.activeWeaponType)
+    {
       case Constants.Pistol:
         reticle.sprite = redReticle;
         break;
@@ -58,5 +82,78 @@ public class GameUI : MonoBehaviour {
       default:
         return;
     }
-  }
+    }
+
+    // Set the default health and armor value at the start of the game
+    void Start()
+    {
+        SetArmorText(player.armor);
+        SetHealthText(player.health);
+    }
+    // Set each text value to their respective text
+    public void SetArmorText(int armor)
+    {
+        armorText.text = "Armor: " + armor;
+    }
+    public void SetHealthText(int health)
+    {
+        healthText.text = "Health: " + health;
+    }
+    public void SetAmmoText(int ammo)
+    {
+        ammoText.text = "Ammo: " + ammo;
+    }
+    public void SetScoreText(int score)
+    {
+        scoreText.text = "" + score;
+    }
+    public void SetWaveText(int time)
+    {
+        waveText.text = "Next Wave: " + time;
+    }
+    public void SetEnemyText(int enemies)
+    {
+        enemyText.text = "Enemies: " + enemies;
+    }
+
+    // Show the wave clear bonus text
+    public void ShowWaveClearBonus()
+    {
+        waveClearText.GetComponent<Text>().enabled = true;
+        StartCoroutine("hideWaveClearBonus");
+    }
+    // After a few seconds, clear the text
+    IEnumerator hideWaveClearBonus()
+    {
+        yield return new WaitForSeconds(4);
+        waveClearText.GetComponent<Text>().enabled = false;
+    }
+    // Let's the player pickup two pickups in quick succession without issues
+    public void SetPickUpText(string text)
+    {
+        pickupText.GetComponent<Text>().enabled = true;
+        pickupText.text = text;
+        // Restart the Coroutine so it doesn’t end early
+        StopCoroutine("hidePickupText");
+        StartCoroutine("hidePickupText");
+    }
+    // Wait four seconds before removing text
+    IEnumerator hidePickupText()
+    {
+        yield return new WaitForSeconds(4);
+        pickupText.GetComponent<Text>().enabled = false;
+    }
+    // Show the new wave text
+    public void ShowNewWaveText()
+    {
+        StartCoroutine("hideNewWaveText");
+        newWaveText.GetComponent<Text>().enabled = true;
+    }
+
+    // Wait 4 seconds before showing new wave text
+    IEnumerator hideNewWaveText()
+    {
+        yield return new WaitForSeconds(4);
+        newWaveText.GetComponent<Text>().enabled = false;
+    }
 }

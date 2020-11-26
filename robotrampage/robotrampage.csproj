@@ -87,11 +87,13 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Ammo.cs" />
     <Compile Include="Assets\Scripts\AssaultRifle.cs" />
+    <Compile Include="Assets\Scripts\BackgroundMusic.cs" />
     <Compile Include="Assets\Scripts\Constants.cs" />
     <Compile Include="Assets\Scripts\Game.cs" />
     <Compile Include="Assets\Scripts\GameUI.cs" />
     <Compile Include="Assets\Scripts\Gun.cs" />
     <Compile Include="Assets\Scripts\GunEquipper.cs" />
+    <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Missle.cs" />
     <Compile Include="Assets\Scripts\Pickup.cs" />
     <Compile Include="Assets\Scripts\PickupSpawn.cs" />
